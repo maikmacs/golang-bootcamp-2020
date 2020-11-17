@@ -2,6 +2,7 @@ package router
 
 import (
 	"golang-bootcamp/interface/controllers"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,9 +13,14 @@ func NewRouter() *gin.Engine {
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
-	files := new(controllers.FilesController)
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello World",
+		})
+	})
 
-	router.GET("/files", files.Status)
+	sync := new(controllers.SyncDataController)
+	router.GET("/sync-data", sync.Status)
 
 	return router
 }
