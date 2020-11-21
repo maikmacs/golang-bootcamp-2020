@@ -1,9 +1,10 @@
 package router
 
 import (
-	"golang-bootcamp/config"
-	"golang-bootcamp/interface/controllers"
 	"net/http"
+
+	"github.com/maikmacs/golang-bootcamp-2020/config"
+	"github.com/maikmacs/golang-bootcamp-2020/interface/controllers"
 
 	"github.com/gin-gonic/gin"
 )

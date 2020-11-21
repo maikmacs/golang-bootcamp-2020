@@ -10,7 +10,7 @@ import (
 	"os"
 	"strconv"
 
-	"golang-bootcamp/config"
+	"github.com/maikmacs/golang-bootcamp-2020/config"
 
 	"github.com/gin-gonic/gin"
 )

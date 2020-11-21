@@ -1,9 +1,9 @@
 package main
 
 import (
-	"golang-bootcamp/config"
+	"github.com/maikmacs/golang-bootcamp-2020/config"
 
-	"golang-bootcamp/infrastructure/router"
+	"github.com/maikmacs/golang-bootcamp-2020/infrastructure/router"
 )
 
 func main() {
