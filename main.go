@@ -3,10 +3,10 @@ package main
 import (
 	"golang-bootcamp/config"
 
-	"golang-bootcamp/infrastructure/server"
+	"golang-bootcamp/infrastructure/router"
 )
 
 func main() {
-	config.Init()
-	server.Init()
+	config.InitConfig()
+	router.InitRouter()
 }

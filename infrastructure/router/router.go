@@ -1,13 +1,21 @@
 package router
 
 import (
+	"golang-bootcamp/config"
 	"golang-bootcamp/interface/controllers"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter() *gin.Engine {
+// InitRouter - Start Server and Router
+func InitRouter() {
+	config := config.GetConfig()
+	r := newRouter()
+	r.Run(":" + config.GetString("server.port"))
+}
+
+func newRouter() *gin.Engine {
 
 	router := gin.New()
 	router.Use(gin.Logger())

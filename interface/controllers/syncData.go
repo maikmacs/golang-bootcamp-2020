@@ -15,8 +15,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SyncDataController -
 type SyncDataController struct{}
 
+// Episode - Episode Structure
 type Episode struct {
 	Name    string `json:"name"`
 	Season  int    `json:"season"`
@@ -24,6 +26,7 @@ type Episode struct {
 	Airdate string `json:"airdate"`
 }
 
+// Status - Sync Status
 func (s SyncDataController) Status(c *gin.Context) {
 	config := config.GetConfig()
 	response, err := http.Get(config.GetString("data.endPoint"))
@@ -38,36 +41,40 @@ func (s SyncDataController) Status(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Failed sync",
 		})
-
 	} else {
 		var episodes []Episode
 
 		json.Unmarshal(responseData, &episodes)
 
-		file, err := os.Create(config.GetString("data.outputPath"))
-		checkError("Cannot create file", err)
-		defer file.Close()
-
-		writer := csv.NewWriter(file)
-		defer writer.Flush()
-
-		for _, episode := range episodes {
-			var row []string
-
-			row = append(row, episode.Name)
-			row = append(row, strconv.Itoa(episode.Season))
-			row = append(row, strconv.Itoa(episode.Number))
-			row = append(row, episode.Airdate)
-
-			err := writer.Write(row)
-			checkError("Cannot write to file", err)
-		}
+		writeCSV(episodes)
 
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Data synced",
 		})
 	}
+}
 
+func writeCSV(episodes []Episode) {
+	config := config.GetConfig()
+
+	file, err := os.Create(config.GetString("data.outputPath"))
+	checkError("Cannot create file", err)
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	for _, episode := range episodes {
+		var row []string
+
+		row = append(row, episode.Name)
+		row = append(row, strconv.Itoa(episode.Season))
+		row = append(row, strconv.Itoa(episode.Number))
+		row = append(row, episode.Airdate)
+
+		err := writer.Write(row)
+		checkError("Cannot write to file", err)
+	}
 }
 
 func checkError(message string, err error) {

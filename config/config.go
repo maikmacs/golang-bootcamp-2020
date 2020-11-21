@@ -11,7 +11,8 @@ import (
 
 var config *viper.Viper
 
-func Init() {
+// InitConfig - Init Config Files
+func InitConfig() {
 	config = viper.New()
 
 	config.SetConfigName("config")
@@ -28,7 +29,6 @@ func Init() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
 }
 
 func relativePath(basedir string, path *string) {
