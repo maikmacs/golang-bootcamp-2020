@@ -28,8 +28,7 @@ type Episode struct {
 
 // Status - Sync Status
 func (s SyncDataController) Status(c *gin.Context) {
-	config := config.GetConfig()
-	response, err := http.Get(config.GetString("data.endPoint"))
+	response, err := http.Get(config.Structure.Data.Source)
 
 	if err != nil {
 		fmt.Print(err.Error())
@@ -55,9 +54,8 @@ func (s SyncDataController) Status(c *gin.Context) {
 }
 
 func writeCSV(episodes []Episode) {
-	config := config.GetConfig()
 
-	file, err := os.Create(config.GetString("data.outputPath"))
+	file, err := os.Create(config.Structure.Data.Output)
 	checkError("Cannot create file", err)
 	defer file.Close()
 

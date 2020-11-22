@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	config.InitConfig()
+	config.ReadConfig()
 	router.InitRouter()
 }

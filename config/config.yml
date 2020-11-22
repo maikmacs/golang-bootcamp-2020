@@ -1,5 +1,5 @@
 server:
   port: 8080
 data:
-  endPoint: http://api.tvmaze.com/shows/38963/episodes
-  outputPath: 'public/episodes.csv'
+  source: http://api.tvmaze.com/shows/38963/episodes
+  output: 'public/episodes.csv'

@@ -9,23 +9,35 @@ import (
 	"github.com/spf13/viper"
 )
 
-var config *viper.Viper
+type config struct {
+	Server struct {
+		Port string
+	}
 
-// InitConfig - Init Config Files
-func InitConfig() {
-	config = viper.New()
+	Data struct {
+		Source string
+		Output string
+	}
+}
 
-	config.SetConfigName("config")
-	config.SetConfigType("yaml")
-	config.AddConfigPath("../config/")
-	config.AddConfigPath("config/")
+// Structure - Export Config Structure
+var Structure config
 
-	if err := config.ReadInConfig(); err != nil {
+// ReadConfig - Init Config Files
+func ReadConfig() {
+	Config := &Structure
+
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("../config/")
+	viper.AddConfigPath("config/")
+
+	if err := viper.ReadInConfig(); err != nil {
 		fmt.Println(err)
 		log.Fatalln(err)
 	}
 
-	if err := config.Unmarshal(&config); err != nil {
+	if err := viper.Unmarshal(&Config); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
@@ -37,6 +49,7 @@ func relativePath(basedir string, path *string) {
 		*path = filepath.Join(basedir, p)
 	}
 }
-func GetConfig() *viper.Viper {
-	return config
-}
+
+// func GetConfig() *viper.Viper {
+// 	return config
+// }

@@ -11,9 +11,8 @@ import (
 
 // InitRouter - Start Server and Router
 func InitRouter() {
-	config := config.GetConfig()
 	r := newRouter()
-	r.Run(":" + config.GetString("server.port"))
+	r.Run(":" + config.Structure.Server.Port)
 }
 
 func newRouter() *gin.Engine {
