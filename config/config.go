@@ -49,7 +49,3 @@ func relativePath(basedir string, path *string) {
 		*path = filepath.Join(basedir, p)
 	}
 }
-
-// func GetConfig() *viper.Viper {
-// 	return config
-// }

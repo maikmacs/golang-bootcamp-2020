@@ -32,7 +32,6 @@ func (s SyncDataController) Status(c *gin.Context) {
 
 	if err != nil {
 		fmt.Print(err.Error())
-		os.Exit(1)
 	}
 
 	responseData, err := ioutil.ReadAll(response.Body)
@@ -54,7 +53,6 @@ func (s SyncDataController) Status(c *gin.Context) {
 }
 
 func writeCSV(episodes []Episode) {
-
 	file, err := os.Create(config.Structure.Data.Output)
 	checkError("Cannot create file", err)
 	defer file.Close()
