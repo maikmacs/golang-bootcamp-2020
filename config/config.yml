@@ -1,0 +1,5 @@
+server:
+  port: 8080
+data:
+  source: http://api.tvmaze.com/shows/38963/episodes
+  output: 'public/episodes.csv'
